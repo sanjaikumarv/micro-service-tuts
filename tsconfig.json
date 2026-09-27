@@ -18,10 +18,26 @@
     "skipLibCheck": true,
     "strict": true,
     "strictPropertyInitialization": false,
-    "types": ["vitest/globals", "node"],
+    "types": [
+      "vitest/globals",
+      "node"
+    ],
     "paths": {
-      "@app/common": ["./libs/common/src"],
-      "@app/common/*": ["./libs/common/src/*"]
+      "@app/common": [
+        "./libs/common/src"
+      ],
+      "@app/common/*": [
+        "./libs/common/src/*"
+      ]
     }
-  }
+  },
+  "files": [],
+  "references": [
+    {
+      "path": "./apps/sleepr/tsconfig.app.json"
+    },
+    {
+      "path": "./apps/reservations/tsconfig.app.json"
+    }
+  ]
 }
