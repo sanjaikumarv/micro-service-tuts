@@ -11,7 +11,7 @@ RUN pnpm install
 
 COPY . .
 
-RUN pnpm exec nest build reservations
+RUN pnpm run build
 
 FROM node:alpine AS production
 
@@ -30,4 +30,4 @@ RUN pnpm install --prod
 
 COPY --from=development /usr/src/app/dist ./dist
 
-CMD ["node", "dist/apps/reservations/main.js"]
+CMD ["node","dist/apps/reservations/main"]
