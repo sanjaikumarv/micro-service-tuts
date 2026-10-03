@@ -5,7 +5,7 @@ WORKDIR /usr/src/app
 COPY package.json ./
 COPY pnpm-lock.yaml ./
 
-RUN npm install -g pnpm@9
+RUN npm install -g pnpm@10
 
 RUN pnpm install
 
@@ -24,7 +24,7 @@ WORKDIR /usr/src/app
 COPY package.json ./
 COPY pnpm-lock.yaml ./
 
-RUN npm install -g pnpm@9
+RUN npm install -g pnpm@10
 
 RUN pnpm install --prod
 
