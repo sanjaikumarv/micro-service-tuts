@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "tables": {
+    "public.attribute_values": { "x": -1632, "y": -713 },
+    "public.attributes": { "x": -1404, "y": -475 },
+    "public.brands": { "x": -1223, "y": -1245 },
+    "public.categories": { "x": -1621, "y": -997 },
+    "public.product_images": { "x": -646, "y": -1227 },
+    "public.product_variants": { "x": -280, "y": -912 },
+    "public.products": { "x": -862, "y": -853 },
+    "public.seller_skus": { "x": 271, "y": -1628 },
+    "public.sellers": { "x": 431, "y": -983 },
+    "public.skus": { "x": -135, "y": -1281 },
+    "public.variant_attributes": { "x": -543, "y": -427 },
+    "public.variant_images": { "x": 186, "y": -453 }
+  },
+  "groups": {
+  },
+  "edges": {}
+}

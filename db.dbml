@@ -1,0 +1,283 @@
+Enum user_role {
+  ADMIN
+  USER
+} 
+
+Table users {
+  id int [pk] 
+  name varchar(255) [not null]
+  email varchar(255) [not null, unique]
+  password varchar(255) [not null]
+  role user_role [not null]
+  indexes {
+    email
+    id
+    role
+  }
+}
+
+Enum token_type {
+  AUTH
+  REFRESH
+}
+
+Table user_token {
+  id int [pk]
+  user_id int [not null]
+  token string [not null]
+  type token_type [not null]
+  created_at timestamp [default: `now()`]
+  indexes {
+    user_id
+    token
+  }
+}
+
+Table user_profiles {
+  image string
+  id int [pk] 
+  user_id int [not null, unique]
+  age int [not null]
+  gender varchar(20) [not null]
+
+  indexes {
+    user_id
+  }
+}
+
+Table user_addresses {
+  id int [pk]
+  address varchar(500) [not null]
+  postal_code varchar(20) [not null]
+  state varchar(100) [not null]
+  city varchar(100) [not null]
+  latitude decimal(10, 8)
+  longitude decimal(11, 8)
+  user_id int [not null] 
+
+  indexes {
+    user_id
+  }
+}
+
+Table product_categories {
+  id int [pk] 
+  name varchar(255) [not null]
+  description text [not null]
+  image string
+  indexes {
+    id
+    name
+  }
+}
+
+Table products {
+  id int [pk]
+  name varchar(255)
+  description text
+  image string
+  price decimal(10, 2)
+  offer_price decimal(10, 2)
+  seller_id int [not null]
+  category_id int [not null]
+  user_id int [not null] 
+  variants boolean [default: false]
+  quantity int [default: 0]
+  indexes {
+    id
+    name
+    description
+    category_id
+    user_id
+  }
+}
+
+Table product_variants {
+  id int [pk]
+  product_id int [not null]
+  price decimal(10, 2) [not null]
+  offer_price decimal(10, 2)
+  quantity int [not null]
+   indexes {
+    product_id
+  }
+}
+
+Table product_features {
+  id int [pk]
+  product_id int
+  feature string
+  indexes {
+    product_id
+  }
+}
+
+Table product_variant_features {
+  id int [pk]
+  product_variant_id int [not null]
+  feature string [not null]
+  indexes {
+    product_variant_id
+  }
+}
+
+Table carts {
+  id int [pk]
+  user_id int [not null]
+  product_id int [not null]
+  quantity int [not null]
+  indexes {
+    id
+    user_id
+    product_id
+  }
+}
+
+Table product_images {
+  id int [pk] 
+  image string [not null]
+  product_id int [not null]
+  
+  indexes {
+    product_id
+  }
+}
+
+Table product_variant_images {
+  id int [pk]  
+  image string [not null]
+  product_variant_id int [not null]
+  indexes {
+    product_variant_id
+  }
+}
+
+Enum order_status {
+  PENDING
+  COMPLETED
+  FAILED
+  RETURN
+}
+
+Table orders {
+  id int [pk]
+  user_id int [not null]
+  status order_status
+  shipping_address_id int [not null]
+  price decimal(10, 2) [not null]
+  created_at timestamp [default: `now()`]
+  updated_at timestamp [default: `now()`]
+  indexes {
+    id
+    user_id
+  }
+}
+
+Table order_items {
+  id int [pk]
+  order_id int [not null]
+  product_id int [not null]
+  quantity int [not null]
+  product_price decimal(10, 2) [not null]
+  final_price decimal(10, 2) [not null]
+  indexes {
+    order_id
+    product_id
+  }
+}
+
+Enum order_delivery_status {
+  PACKED
+  SHIPPED
+  OUT_FOR_DELIVERY
+  DELIVERED
+  RETURNED
+  CANCELLED
+}
+
+Table order_delivery_status {
+  id int [pk]
+  order_id int [not null]
+  status order_delivery_status [not null]
+  created_at timestamp [default: `now()`]
+  updated_at timestamp [default: `now()`]
+  indexes {
+    order_id
+  }
+}
+
+Enum payment_method {
+  UPI
+  CREDIT_CARD
+  DEBIT_CARD
+  NET_BANKING
+  WALLET
+  COD
+}
+
+Enum payment_status {
+  PENDING
+  COMPLETED
+  FAILED
+}
+
+Enum card_type {
+  VISA
+  MASTERCARD
+  AMERICAN_EXPRESS
+  RuPay
+  DISCOVER
+  OTHER
+}
+
+Table user_payment_detail {
+  id int [pk]
+  user_id int [not null]
+  card_number string 
+  upi_id string 
+  bank_name string
+  account_number string 
+  card_holder_name string 
+  cvv string
+  card_type card_type
+}
+
+Table payments {
+  id int [pk]
+  order_id int [not null]
+  amount decimal(10, 2)
+  payment_method payment_method
+  payment_status payment_status
+  transaction_id string
+  created_at timestamp [default: `now()`]
+  updated_at timestamp [default: `now()`]
+
+  indexes {
+    id
+    order_id
+    payment_method
+    payment_status
+    transaction_id
+  }
+}
+
+Ref: user_profiles.user_id - users.id
+Ref: user_addresses.user_id > users.id
+Ref: products.category_id > product_categories.id
+Ref: products.user_id > users.id
+Ref: carts.user_id > users.id
+Ref: product_variants.product_id > products.id
+Ref: product_features.product_id > products.id
+Ref: product_images.product_id > products.id
+Ref: product_variant_features.product_variant_id > product_variants.id
+Ref: product_variant_images.product_variant_id > product_variants.id
+Ref: orders.user_id > users.id
+Ref: order_delivery_status.order_id > orders.id
+Ref: payments.order_id - orders.id
+Ref: carts.product_id > products.id
+Ref: products.seller_id > users.id
+Ref: user_payment_detail.user_id - users.id
+Ref: user_token.user_id > users.id
+Ref: order_items.order_id > orders.id
+Ref: order_items.product_id > products.id
+Ref: orders.shipping_address_id > user_addresses.id

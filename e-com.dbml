@@ -1,0 +1,170 @@
+Table categories {
+    id int [pk]
+    parent_id int [null]
+    name varchar
+    description text
+
+    created_at datetime
+    updated_at datetime
+
+    indexes {
+        parent_id
+        name [unique]
+    }
+}
+
+
+
+Table brands {
+    id int [pk]
+    name varchar
+    description text
+
+    created_at datetime
+    updated_at datetime
+
+    indexes {
+        name [unique]
+    }
+}
+
+Table products {
+    id int [pk]
+    brand_id int
+    category_id int
+
+    name varchar
+    model_number varchar [null]
+    description text
+
+    created_at datetime
+    updated_at datetime
+
+    indexes {
+        brand_id
+        category_id
+        model_number
+    }
+}
+
+Table product_variants {
+    id int [pk]
+    product_id int
+
+    title varchar
+    created_at datetime
+    updated_at datetime
+
+    indexes {
+        product_id
+    }
+}
+
+Table attributes {
+    id int [pk]
+    name varchar
+
+    indexes {
+        name [unique]
+    }
+}
+
+Table attribute_values {
+    id int [pk]
+    attribute_id int
+    value varchar
+
+    indexes {
+        attribute_id
+        (attribute_id, value) [unique]
+    }
+}
+
+Table variant_attributes {
+    id int [pk]
+    product_variant_id int
+    attribute_value_id int
+
+    indexes {
+        product_variant_id
+        attribute_value_id
+        (product_variant_id, attribute_value_id) [unique]
+    }
+}
+
+Table skus {
+    id int [pk]
+    product_variant_id int
+    sku_code varchar
+
+    created_at datetime
+    updated_at datetime
+
+    indexes {
+        product_variant_id [unique]
+        sku_code [unique]
+    }
+}
+
+Table product_images {
+    id int [pk]
+    product_id int
+    image_url text
+    sort_order int
+
+    indexes {
+        product_id
+    }
+}
+
+Table variant_images {
+    id int [pk]
+    product_variant_id int
+    image_url text
+    sort_order int
+
+    indexes {
+        product_variant_id
+    }
+}
+
+Table sellers {
+    id int [pk]
+    name varchar
+
+    created_at datetime
+    updated_at datetime
+}
+
+Table seller_skus {
+    id int [pk]
+    seller_id int
+    sku_id int
+
+    actual_price decimal
+    offer_price decimal
+    stock int
+
+    created_at datetime
+    updated_at datetime
+
+    indexes {
+        seller_id
+        sku_id
+        (seller_id, sku_id) [unique]
+    }
+}
+
+
+Ref: products.category_id > categories.id
+Ref: products.brand_id > brands.id
+Ref: product_variants.product_id > products.id
+Ref: variant_attributes.product_variant_id > product_variants.id
+Ref: variant_attributes.attribute_value_id > attribute_values.id
+Ref: skus.product_variant_id > product_variants.id
+Ref: product_images.product_id > products.id
+Ref: variant_images.product_variant_id > product_variants.id
+Ref: seller_skus.seller_id > sellers.id
+Ref: seller_skus.sku_id > skus.id
+Ref: attribute_values.attribute_id > attributes.id
+Ref: categories.parent_id > categories.id

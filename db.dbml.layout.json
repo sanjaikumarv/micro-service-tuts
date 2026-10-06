@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "tables": {
+    "public.carts": { "x": -82, "y": -328 },
+    "public.order_delivery_status": { "x": -436, "y": -783 },
+    "public.order_items": { "x": 32, "y": 32 },
+    "public.orders": { "x": -1025, "y": -419 },
+    "public.payments": { "x": -1366, "y": -123 },
+    "public.product_categories": { "x": -312, "y": 644 },
+    "public.product_features": { "x": -1259, "y": 265 },
+    "public.product_images": { "x": -654, "y": -108 },
+    "public.product_variant_features": { "x": 170, "y": 721 },
+    "public.product_variant_images": { "x": 178, "y": 417 },
+    "public.product_variants": { "x": -381, "y": 449 },
+    "public.products": { "x": -957, "y": 170 },
+    "public.user_addresses": { "x": -160, "y": -615 },
+    "public.user_payment_detail": { "x": 32, "y": 32 },
+    "public.user_profiles": { "x": 678, "y": -72 },
+    "public.user_token": { "x": 32, "y": 32 },
+    "public.users": { "x": 313, "y": -177 }
+  },
+  "groups": {
+  },
+  "edges": {}
+}
