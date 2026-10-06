@@ -5,6 +5,9 @@
     "rootDir": "../..",
     "outDir": "../../dist/apps/auth"
   },
-  "include": ["src/**/*"],
+  "include": [
+    "src/**/*",
+    "../../libs/common/src/decorators/current-user.decorator.ts"
+  ],
   "exclude": ["node_modules", "dist", "test", "**/*spec.ts"]
 }
