@@ -70,3 +70,5 @@ steps:
         'push',
         'sia-south1-docker.pkg.dev/project-4ea21251-e896-4e9a-aff/payments/production',
       ]
+options:
+  logging: CLOUD_LOGGING_ONLY
