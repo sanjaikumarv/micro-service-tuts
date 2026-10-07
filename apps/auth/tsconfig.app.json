@@ -7,7 +7,8 @@
   },
   "include": [
     "src/**/*",
-    "../../libs/common/src/decorators/current-user.decorator.ts"
+    "../../libs/common/src/decorators/current-user.decorator.ts",
+    "../../libs/common/models/user.schema.ts"
   ],
   "exclude": ["node_modules", "dist", "test", "**/*spec.ts"]
 }
