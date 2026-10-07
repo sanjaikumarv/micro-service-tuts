@@ -41,8 +41,21 @@ services:
     command: pnpm start:dev payments
     env_file:
       - ./apps/payments/.env
-    ports:
-      - '3003:3003'
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+      - WATCHPACK_POLLING=true
+      - WATCH_POLL=true
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+  notifications:
+    build:
+      context: .
+      dockerfile: apps/notifications/Dockerfile
+      target: development
+    command: pnpm start:dev notifications
+    env_file:
+      - ./apps/notifications/.env
     environment:
       - CHOKIDAR_USEPOLLING=true
       - WATCHPACK_POLLING=true
