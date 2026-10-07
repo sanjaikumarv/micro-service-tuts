@@ -1,0 +1,72 @@
+steps:
+  # Reservations
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      [
+        'build',
+        '-t',
+        'sia-south1-docker.pkg.dev/project-4ea21251-e896-4e9a-aff/reservations/production',
+        '-f',
+        'apps/reservations/Dockerfile',
+        '.',
+      ]
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      [
+        'push',
+        'sia-south1-docker.pkg.dev/project-4ea21251-e896-4e9a-aff/reservations/production',
+      ]
+
+  # Auth
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      [
+        'build',
+        '-t',
+        'sia-south1-docker.pkg.dev/project-4ea21251-e896-4e9a-aff/auth/production',
+        '-f',
+        'apps/auth/Dockerfile',
+        '.',
+      ]
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      [
+        'push',
+        'sia-south1-docker.pkg.dev/project-4ea21251-e896-4e9a-aff/auth/production',
+      ]
+
+    # Notifications
+
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      [
+        'build',
+        '-t',
+        'sia-south1-docker.pkg.dev/project-4ea21251-e896-4e9a-aff/notifications/production',
+        '-f',
+        'apps/notifications/Dockerfile',
+        '.',
+      ]
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      [
+        'push',
+        'sia-south1-docker.pkg.dev/project-4ea21251-e896-4e9a-aff/notifications/production',
+      ]
+      # Payments
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      [
+        'build',
+        '-t',
+        'sia-south1-docker.pkg.dev/project-4ea21251-e896-4e9a-aff/payments/production',
+        '-f',
+        'apps/payments/Dockerfile',
+        '.',
+      ]
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      [
+        'push',
+        'sia-south1-docker.pkg.dev/project-4ea21251-e896-4e9a-aff/payments/production',
+      ]

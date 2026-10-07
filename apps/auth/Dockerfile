@@ -4,6 +4,8 @@ WORKDIR /usr/src/app
 
 COPY package.json ./
 COPY pnpm-lock.yaml ./
+COPY pnpm-workspace.yaml ./
+COPY .npmrc ./
 COPY tsconfig.json tsconfig.json
 COPY nest-cli.json nest-cli.json
 
