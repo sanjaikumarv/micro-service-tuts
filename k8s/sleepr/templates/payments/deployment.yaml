@@ -15,7 +15,7 @@ spec:
         app: payments
     spec:
       containers:
-        - image: asia-south1-docker.pkg.dev/project-4ea21251-e896-4e9a-aff/payments/production
+        - image: 511113357904.dkr.ecr.ap-south-1.amazonaws.com/payments:latest
           name: payments
           env:
             - name: PORT

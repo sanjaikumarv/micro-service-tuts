@@ -15,7 +15,7 @@ spec:
         app: notifications
     spec:
       containers:
-        - image: asia-south1-docker.pkg.dev/project-4ea21251-e896-4e9a-aff/notifications/production
+        - image: 511113357904.dkr.ecr.ap-south-1.amazonaws.com/notifications:latest
           name: notifications
           env:
             - name: PORT
