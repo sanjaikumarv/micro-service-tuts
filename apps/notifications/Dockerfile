@@ -1,4 +1,4 @@
-FROM node:alpine AS development
+FROM public.ecr.aws/docker/library/node:alpine AS development
 
 WORKDIR /usr/src/app
 
@@ -20,7 +20,7 @@ RUN pnpm install -r
 
 RUN pnpm run build notifications
 
-FROM node:alpine AS production
+FROM public.ecr.aws/docker/library/node:alpine AS production
 
 ARG NODE_ENV=production
 
