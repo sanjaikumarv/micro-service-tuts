@@ -1,7 +1,6 @@
-import { Module, Global } from '@nestjs/common';
+import { Module } from '@nestjs/common';
 import { LoggerModule as PinoLoggerModule } from 'nestjs-pino';
 
-@Global()
 @Module({
   imports: [
     PinoLoggerModule.forRoot({
@@ -15,6 +14,5 @@ import { LoggerModule as PinoLoggerModule } from 'nestjs-pino';
       },
     }),
   ],
-  exports: [PinoLoggerModule],
 })
 export class LoggerModule {}

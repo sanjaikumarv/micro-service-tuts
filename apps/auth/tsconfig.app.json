@@ -2,13 +2,8 @@
   "extends": "../../tsconfig.json",
   "compilerOptions": {
     "declaration": false,
-    "rootDir": "../..",
     "outDir": "../../dist/apps/auth"
   },
-  "include": [
-    "src/**/*",
-    "../../libs/common/src/decorators/current-user.decorator.ts",
-    "../../libs/common/models/user.schema.ts"
-  ],
+  "include": ["src/**/*"],
   "exclude": ["node_modules", "dist", "test", "**/*spec.ts"]
 }

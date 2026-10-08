@@ -2,9 +2,8 @@
   "extends": "../../tsconfig.json",
   "compilerOptions": {
     "declaration": false,
-    "rootDir": "../..",
     "outDir": "../../dist/apps/reservations"
   },
-  "include": ["src/**/*", "../../libs/common/src/dto/card.dto.ts"],
+  "include": ["src/**/*"],
   "exclude": ["node_modules", "dist", "test", "**/*spec.ts"]
 }

@@ -1,13 +1,12 @@
 import { Module } from '@nestjs/common';
-import { NotificationsController } from './notifications.controller.js';
-import { NotificationsService } from './notifications.service.js';
-import { LoggerModule } from '@app/common';
 import { ConfigModule } from '@nestjs/config';
-import Joi from 'joi';
+import * as Joi from 'joi';
+import { LoggerModule } from '@app/common';
+import { NotificationsController } from './notifications.controller';
+import { NotificationsService } from './notifications.service';
 
 @Module({
   imports: [
-    LoggerModule,
     ConfigModule.forRoot({
       isGlobal: true,
       validationSchema: Joi.object({
@@ -18,6 +17,7 @@ import Joi from 'joi';
         SMTP_USER: Joi.string().required(),
       }),
     }),
+    LoggerModule,
   ],
   controllers: [NotificationsController],
   providers: [NotificationsService],

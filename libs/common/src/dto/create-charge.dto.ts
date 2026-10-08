@@ -1,15 +1,15 @@
-import Stripe from 'stripe';
-import { CardDto } from './card.dto';
+import { Type } from 'class-transformer';
 import {
   IsDefined,
-  IsNotEmpty,
+  IsNotEmptyObject,
   IsNumber,
   ValidateNested,
 } from 'class-validator';
-import { Type } from 'class-transformer';
+import { CardDto } from './card.dto';
+
 export class CreateChargeDto {
   @IsDefined()
-  @IsNotEmpty()
+  @IsNotEmptyObject()
   @ValidateNested()
   @Type(() => CardDto)
   card: CardDto;
