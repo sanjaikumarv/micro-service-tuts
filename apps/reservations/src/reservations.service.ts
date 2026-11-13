@@ -17,6 +17,7 @@ export class ReservationsService {
     createReservationDto: CreateReservationDto,
     { email, _id: userId }: UserDto,
   ) {
+    console.log('render----->');
     return this.paymentsService
       .send('create_charge', {
         ...createReservationDto.charge,

@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import * as Joi from 'joi';
+import Joi from 'joi';
 import { ReservationsService } from './reservations.service';
 import { ReservationsController } from './reservations.controller';
 import {
@@ -16,6 +16,12 @@ import {
 } from './models/reservation.schema';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { ClientsModule, Transport } from '@nestjs/microservices';
+import { GraphQLModule } from '@nestjs/graphql';
+import {
+  ApolloFederationDriver,
+  ApolloFederationDriverConfig,
+} from '@nestjs/apollo';
+import { ReservationResolver } from './reservation.resolver';
 
 @Module({
   imports: [
@@ -23,6 +29,11 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
     DatabaseModule.forFeature([
       { name: ReservationDocument.name, schema: ReservationSchema },
     ]),
+    GraphQLModule.forRoot<ApolloFederationDriverConfig>({
+      driver: ApolloFederationDriver,
+      autoSchemaFile: { federation: 2 },
+    }),
+
     LoggerModule,
     ConfigModule.forRoot({
       isGlobal: true,
@@ -62,6 +73,6 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
     HealthModule,
   ],
   controllers: [ReservationsController],
-  providers: [ReservationsService, ReservationsRepository],
+  providers: [ReservationsService, ReservationsRepository, ReservationResolver],
 })
 export class ReservationsModule {}

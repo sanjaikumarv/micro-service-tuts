@@ -69,9 +69,23 @@ services:
       - .:/usr/src/app
       - /usr/src/app/node_modules
       - /usr/src/app/apps/notifications/node_modules
-  mysql:
-    image: mysql:8.4.0
+  gateway:
+    build:
+      context: .
+      dockerfile: apps/gateway/Dockerfile
+      target: development
+    command: pnpm start:dev gateway
     env_file:
-      - .env
+      - ./apps/gateway/.env
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+      - WATCHPACK_POLLING=true
+      - WATCH_POLL=true
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+      - /usr/src/app/apps/gateway/node_modules
     ports:
-      - '3306:3306'
+      - '3004:3004'
+  mongo:
+    image: mongo

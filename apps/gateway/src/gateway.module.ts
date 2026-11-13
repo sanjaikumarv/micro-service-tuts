@@ -1,0 +1,67 @@
+import { Module } from '@nestjs/common';
+import { ConfigModule, ConfigService } from '@nestjs/config';
+import { AUTH_SERVICE, LoggerModule } from '@app/common';
+import { GraphQLModule } from '@nestjs/graphql';
+import { ApolloGatewayDriver, ApolloGatewayDriverConfig } from '@nestjs/apollo';
+import { IntrospectAndCompose, RemoteGraphQLDataSource } from '@apollo/gateway';
+import { ClientsModule, Transport } from '@nestjs/microservices';
+import { authContext } from './auth.context';
+
+@Module({
+  imports: [
+    GraphQLModule.forRootAsync<ApolloGatewayDriverConfig>({
+      driver: ApolloGatewayDriver,
+      useFactory: (configService: ConfigService) => ({
+        server: {
+          context: authContext,
+        },
+        gateway: {
+          supergraphSdl: new IntrospectAndCompose({
+            subgraphs: [
+              {
+                name: 'reservations',
+                url: configService.getOrThrow('RESERVATIONS_GRAPHQL_URL'),
+              },
+            ],
+          }),
+
+          buildService({ url }) {
+            return new RemoteGraphQLDataSource({
+              url,
+              async willSendRequest({ request, context }: any) {
+                if (context?.user) {
+                  if (typeof request.http.set === 'function') {
+                    request.http.set('user', JSON.stringify(context.user));
+                  } else {
+                    request.http.headers['user'] = JSON.stringify(context.user);
+                  }
+                }
+              },
+            });
+          },
+        },
+      }),
+      inject: [ConfigService],
+    }),
+    ClientsModule.registerAsync([
+      {
+        name: AUTH_SERVICE,
+        useFactory: (configService: ConfigService) => ({
+          transport: Transport.TCP,
+          options: {
+            host: configService.get('AUTH_HOST'),
+            port: configService.get('AUTH_PORT'),
+          },
+        }),
+        inject: [ConfigService],
+      },
+    ]),
+    ConfigModule.forRoot({
+      isGlobal: true,
+    }),
+    LoggerModule,
+  ],
+  controllers: [],
+  providers: [],
+})
+export class GatewayModule {}

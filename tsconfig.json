@@ -18,17 +18,10 @@
     "skipLibCheck": true,
     "strict": true,
     "strictPropertyInitialization": false,
-    "types": [
-      "vitest/globals",
-      "node"
-    ],
+    "types": ["vitest/globals", "node"],
     "paths": {
-      "@app/common": [
-        "./libs/common/src"
-      ],
-      "@app/common/*": [
-        "./libs/common/src/*"
-      ]
+      "@app/common": ["./libs/common/src"],
+      "@app/common/*": ["./libs/common/src/*"]
     }
   },
   "files": [],
@@ -50,6 +43,9 @@
     },
     {
       "path": "./apps/notifications/tsconfig.app.json"
+    },
+    {
+      "path": "./apps/gateway/tsconfig.app.json"
     }
   ]
 }

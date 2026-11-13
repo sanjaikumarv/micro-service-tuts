@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { HealthModule, LoggerModule } from '@app/common';
 import { JwtModule } from '@nestjs/jwt';
-import * as Joi from 'joi';
+import Joi from 'joi';
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
 import { UsersModule } from './users/users.module';

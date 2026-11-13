@@ -52,7 +52,7 @@ export abstract class AbstractRepository<TDocument extends AbstractDocument> {
 
   async findOneAndDelete(
     filterQuery: QueryFilter<TDocument>,
-  ): Promise<TDocument> {
+  ): Promise<TDocument | null> {
     return this.model.findOneAndDelete(filterQuery).lean<TDocument>(true);
   }
 }
